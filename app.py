@@ -31,17 +31,21 @@ def about():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        flash(f"Account created for {form.username.data}!", 'success')
+    redg_form = RegistrationForm()
+    if redg_form.validate_on_submit():
+        flash(f"Account created for {redg_form.username.data}!", 'success')
         return redirect(url_for('home'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', r_form=redg_form)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    form = LoginForm()
-    return render_template('login.html', title='Register', form=form)
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        flash(f"Account created for {login_form.email.data}!", 'success')
+        return redirect(url_for('home'))
+    return render_template('login.html', title='Login', l_form=login_form)
+
 
 
 if __name__ == '__main__':
